@@ -1,0 +1,785 @@
+<title>Câblage Table d'Éveil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F3F5F1;
+    --surface:#FFFFFF;
+    --surface-2:#E9EDE6;
+    --ink:#161D1A;
+    --muted:#5A6A63;
+    --line:#D2D9CF;
+    --line-strong:#B3BEB2;
+    --brass:#87610F;
+    --brass-ink:#87610F;
+    --danger:#A6301D;
+    --danger-bg:#FBEDEA;
+    --ok:#2A6A4C;
+    --ok-bg:#EAF3ED;
+    --shadow:0 1px 2px rgba(20,30,25,.06), 0 8px 24px rgba(20,30,25,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1312;
+      --surface:#161D1B;
+      --surface-2:#1D2623;
+      --ink:#E6EDE8;
+      --muted:#92A29B;
+      --line:#28332F;
+      --line-strong:#3B4944;
+      --brass:#DFA84A;
+      --brass-ink:#E8BC6C;
+      --danger:#F0846C;
+      --danger-bg:#2A1714;
+      --ok:#63C295;
+      --ok-bg:#12241C;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1312;
+    --surface:#161D1B;
+    --surface-2:#1D2623;
+    --ink:#E6EDE8;
+    --muted:#92A29B;
+    --line:#28332F;
+    --line-strong:#3B4944;
+    --brass:#DFA84A;
+    --brass-ink:#E8BC6C;
+    --danger:#F0846C;
+    --danger-bg:#2A1714;
+    --ok:#63C295;
+    --ok-bg:#12241C;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    line-height:1.6;
+    margin:0;
+    padding:0 1.25rem 5rem;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:880px;margin:0 auto}
+
+  /* ---------- en-tete ---------- */
+  header{padding:3.5rem 0 2.5rem;border-bottom:2px solid var(--ink)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--brass-ink);margin:0 0 1rem;
+  }
+  h1{
+    font-family:Archivo,system-ui,sans-serif;font-weight:800;
+    font-size:clamp(2rem,6vw,3.1rem);line-height:1.02;
+    letter-spacing:-.025em;margin:0;text-wrap:balance;
+  }
+  .lede{font-size:1.05rem;color:var(--muted);max-width:60ch;margin:1.1rem 0 0}
+
+  /* ---------- structure ---------- */
+  section{padding-top:3.25rem}
+  h2{
+    font-family:Archivo,system-ui,sans-serif;font-weight:700;
+    font-size:1.5rem;letter-spacing:-.015em;margin:0 0 .4rem;text-wrap:balance;
+  }
+  h3{
+    font-family:Archivo,system-ui,sans-serif;font-weight:600;
+    font-size:1.05rem;margin:2rem 0 .5rem;letter-spacing:-.01em;
+  }
+  .sec-note{color:var(--muted);margin:0 0 1.5rem;max-width:62ch}
+  p{max-width:64ch}
+  a{color:var(--brass-ink)}
+
+  /* ---------- figures ---------- */
+  figure{
+    margin:1.5rem 0 0;background:var(--surface);
+    border:1px solid var(--line);border-radius:10px;
+    padding:1.25rem;box-shadow:var(--shadow);
+  }
+  .fig-scroll{overflow-x:auto}
+  figure svg{display:block;width:100%;height:auto;min-width:520px;color:var(--ink)}
+  figcaption{
+    margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--line);
+    font-size:.86rem;color:var(--muted);
+  }
+  figcaption b{color:var(--ink);font-weight:600}
+
+  /* ---------- tableaux ---------- */
+  .tw{overflow-x:auto;margin-top:1.25rem}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+  caption{
+    text-align:left;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    padding-bottom:.6rem;
+  }
+  th,td{padding:.6rem .7rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);font-weight:600;
+    border-bottom:1.5px solid var(--line-strong);
+  }
+  tbody tr:last-child td{border-bottom:none}
+  tr.chg td{background:var(--ok-bg)}
+  .pin{
+    font-family:"IBM Plex Mono",monospace;font-weight:600;
+    font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--brass-ink);
+  }
+  .silk{
+    font-family:"IBM Plex Mono",monospace;font-size:.82rem;
+    color:var(--muted);white-space:nowrap;
+  }
+  .was{
+    font-family:"IBM Plex Mono",monospace;font-size:.75rem;
+    color:var(--ok);white-space:nowrap;
+  }
+  code{
+    font-family:"IBM Plex Mono",monospace;font-size:.88em;
+    background:var(--surface-2);padding:.1em .35em;border-radius:3px;
+  }
+
+  /* ---------- encarts ---------- */
+  .card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:1.15rem 1.3rem;margin-top:1.25rem;
+    box-shadow:var(--shadow);
+  }
+  .warn{background:var(--danger-bg);border-color:var(--danger)}
+  .warn h3{margin-top:0;color:var(--danger)}
+  .good{background:var(--ok-bg);border-color:var(--ok)}
+  .good h3{margin-top:0;color:var(--ok)}
+  .card h3{margin-top:0}
+  .card p:last-child,.card ul:last-child{margin-bottom:0}
+  ul{padding-left:1.1rem;max-width:64ch}
+  li{margin:.3rem 0}
+
+  pre{
+    background:var(--surface-2);border:1px solid var(--line);
+    border-radius:8px;padding:1rem;overflow-x:auto;
+    font-family:"IBM Plex Mono",monospace;font-size:.82rem;line-height:1.6;
+  }
+  pre .c{color:var(--muted)}
+
+  /* ---------- checklist ---------- */
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:1.25rem 0 0;max-width:64ch}
+  ol.steps li{
+    counter-increment:s;position:relative;padding-left:2.6rem;margin:0 0 1rem;
+  }
+  ol.steps li::before{
+    content:counter(s,decimal-leading-zero);
+    position:absolute;left:0;top:.1rem;
+    font-family:"IBM Plex Mono",monospace;font-size:.78rem;font-weight:600;
+    color:var(--brass-ink);
+  }
+  ol.steps b{font-weight:600}
+
+  footer{
+    margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);
+    color:var(--muted);font-size:.85rem;
+  }
+</style>
+
+<div class="page">
+
+<header>
+  <p class="eyebrow">LeapFrog → macro pad BLE · brochage v2</p>
+  <h1>Câblage de la table d'éveil</h1>
+  <p class="lede">Tout ce qu'il faut souder, sauf les 4 LED et le haut-parleur, dont les broches sont réservées mais laissées libres. 13 boutons de macro, un sélecteur de mode, un switch 3 positions, un slider. Cette version suit la disposition réelle de la table et tient compte des fils déjà soudés.</p>
+</header>
+
+<div class="card good">
+  <h3>Ce qui change dans cette version</h3>
+  <ul>
+    <li><b>Maracas et bongo échangés</b> pour coller à ta soudure : maracas sur <code>D26</code>, bongo sur <code>D23</code>.</li>
+    <li><b>Guitare déplacée côté EN</b>, là où ses fils arrivent : Guitare 1 sur <code>D33</code>, Guitare 2 sur <code>VN</code> avec une résistance 10 kΩ vers 3V3.</li>
+    <li><b>SW1 libère D33</b> et passe sur <code>D22</code>, l'ancienne place de Guitare 1.</li>
+    <li><b>La caisse devient la trappe</b> (repère H), toujours sur <code>D25</code>.</li>
+    <li><b>Le livre au centre devient le 13ᵉ bouton</b>, sur <code>D15</code>, l'ancienne place de Guitare 2.</li>
+  </ul>
+  <p>Le piano, les formes, SW2 et le slider ne bougent pas. Les lignes modifiées sont surlignées en vert dans les tableaux.</p>
+</div>
+
+<section>
+  <h2>Repère les broches par leur sérigraphie</h2>
+  <p class="sec-note">Ce document ne dessine volontairement pas une carte vue de dessus. La disposition physique des broches change d'une carte à l'autre (30 ou 36 broches, colonnes inversées), et un plan physique erroné serait pire que pas de plan. En revanche, <b>le marquage imprimé sur la carte est fiable partout</b> : cherche <code>D13</code>, <code>D22</code>, <code>VP</code>, <code>VN</code> sur le circuit imprimé.</p>
+
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 920 695" role="img" aria-label="Vue d'ensemble : l'ESP32 relié à neuf groupes de commandes, avec un rail de masse commun et un rail 3,3 volts pour la guitare, le switch 3 positions et le slider.">
+        <!-- ESP32 -->
+        <rect x="26" y="78" width="176" height="550" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="114" y="112" text-anchor="middle" font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="currentColor">ESP32</text>
+        <text x="114" y="132" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor" opacity=".65">DevKit V1</text>
+        <line x1="50" y1="148" x2="178" y2="148" stroke="currentColor" stroke-width="1" opacity=".3"/>
+
+        <!-- lignes vers les groupes -->
+        <g stroke="currentColor" stroke-width="1.5" fill="none">
+          <line x1="202" y1="176" x2="330" y2="176"/>
+          <line x1="202" y1="231" x2="330" y2="231"/>
+          <line x1="202" y1="286" x2="330" y2="286"/>
+          <line x1="202" y1="341" x2="330" y2="341"/>
+          <line x1="202" y1="396" x2="330" y2="396"/>
+          <line x1="202" y1="451" x2="330" y2="451"/>
+        </g>
+        <g stroke="var(--danger)" stroke-width="1.5" fill="none">
+          <line x1="202" y1="561" x2="330" y2="561"/>
+        </g>
+        <g stroke="var(--brass)" stroke-width="1.5" fill="none">
+          <line x1="202" y1="616" x2="330" y2="616"/>
+        </g>
+
+        <!-- etiquettes GPIO sur les liaisons -->
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" text-anchor="middle">
+          <text x="266" y="170">D13·14·27·32</text>
+          <text x="266" y="225">D18·19·21</text>
+          <text x="266" y="280">D26·25·23</text>
+          <text x="266" y="335">D33 · VN</text>
+          <text x="266" y="390">D15</text>
+          <text x="266" y="445">D22</text>
+        </g>
+        <text x="266" y="500" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".5" text-anchor="middle">rien à câbler</text>
+        <text x="266" y="555" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--danger)" text-anchor="middle">D35 · VP</text>
+        <text x="266" y="610" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--brass)" text-anchor="middle">D34</text>
+
+        <!-- groupes -->
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="330" y="156" width="420" height="40" rx="5"/>
+          <rect x="330" y="211" width="420" height="40" rx="5"/>
+          <rect x="330" y="266" width="420" height="40" rx="5"/>
+          <rect x="330" y="321" width="420" height="40" rx="5"/>
+          <rect x="330" y="376" width="420" height="40" rx="5"/>
+          <rect x="330" y="431" width="420" height="40" rx="5"/>
+        </g>
+        <rect x="330" y="486" width="420" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4" opacity=".45"/>
+        <rect x="330" y="541" width="420" height="40" rx="5" fill="none" stroke="var(--danger)" stroke-width="1.5"/>
+        <rect x="330" y="596" width="420" height="40" rx="5" fill="none" stroke="var(--brass)" stroke-width="1.5"/>
+
+        <g font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="currentColor">
+          <text x="346" y="181">E · Piano — 4 touches, une note chacune</text>
+          <text x="346" y="236">C · Formes géométriques — 3 boutons</text>
+          <text x="346" y="291">Maracas (F) · trappe (H) · bongo (B)</text>
+          <text x="346" y="346">A · Guitare — 2 boutons · 10 kΩ sur VN</text>
+          <text x="346" y="401">Centre · Livre — 1 bouton</text>
+          <text x="346" y="456">F · SW1 — sélecteur MIDI / HID</text>
+          <text x="346" y="511" opacity=".6">Entrée en config — combinaison de boutons existants</text>
+          <text x="346" y="566" fill="var(--danger)">F · SW2 — 3 positions · 2 résistances 10 kΩ</text>
+          <text x="346" y="621" fill="var(--brass)">G · Slider 10 kΩ — signal analogique</text>
+        </g>
+
+        <!-- rail GND -->
+        <line x1="812" y1="166" x2="812" y2="626" stroke="currentColor" stroke-width="4" opacity=".55"/>
+        <text x="822" y="166" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">GND</text>
+        <g stroke="currentColor" stroke-width="1.5">
+          <line x1="750" y1="176" x2="812" y2="176"/>
+          <line x1="750" y1="231" x2="812" y2="231"/>
+          <line x1="750" y1="286" x2="812" y2="286"/>
+          <line x1="750" y1="341" x2="812" y2="341"/>
+          <line x1="750" y1="396" x2="812" y2="396"/>
+          <line x1="750" y1="451" x2="812" y2="451"/>
+          <line x1="750" y1="561" x2="812" y2="561"/>
+          <line x1="750" y1="616" x2="812" y2="616"/>
+        </g>
+        <g fill="currentColor">
+          <circle cx="812" cy="176" r="3.5"/><circle cx="812" cy="231" r="3.5"/>
+          <circle cx="812" cy="286" r="3.5"/><circle cx="812" cy="341" r="3.5"/>
+          <circle cx="812" cy="396" r="3.5"/><circle cx="812" cy="451" r="3.5"/>
+          <circle cx="812" cy="561" r="3.5"/><circle cx="812" cy="616" r="3.5"/>
+        </g>
+
+        <!-- rail 3V3 -->
+        <line x1="872" y1="321" x2="872" y2="636" stroke="var(--brass)" stroke-width="4"/>
+        <text x="872" y="309" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="var(--brass)" text-anchor="middle">3V3</text>
+        <g stroke="var(--brass)" stroke-width="1.5">
+          <line x1="750" y1="331" x2="872" y2="331"/>
+          <line x1="750" y1="551" x2="872" y2="551"/>
+          <line x1="750" y1="606" x2="872" y2="606"/>
+        </g>
+        <circle cx="872" cy="331" r="3.5" fill="var(--brass)"/>
+        <circle cx="872" cy="551" r="3.5" fill="var(--brass)"/>
+        <circle cx="872" cy="606" r="3.5" fill="var(--brass)"/>
+
+        <!-- legende -->
+        <g font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor" opacity=".75">
+          <circle cx="34" cy="660" r="3.5" fill="currentColor"/>
+          <text x="46" y="664">point = connexion</text>
+          <line x1="196" y1="654" x2="216" y2="666" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="196" y1="666" x2="216" y2="654" stroke="currentColor" stroke-width="1.2"/>
+          <text x="226" y="664">croisement sans point = pas de connexion</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>Vue d'ensemble.</b> Les lettres reprennent les repères de la table (A à H). Neuf groupes, un seul rail de masse commun, et un rail 3,3 V qui sert à la résistance de Guitare 2, au switch 3 positions et au slider. Le rail GND est la pièce maîtresse : chaque bouton y renvoie une patte, et c'est le point de défaillance le plus fréquent d'un montage soudé à la main.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Le brochage</h2>
+  <p class="sec-note">Les broches 6 à 11 sont câblées à la mémoire flash et n'existent pas sur les connecteurs ; 1 et 3 servent au port série USB. Elles n'apparaissent donc nulle part ici.</p>
+
+  <div class="tw">
+    <table>
+      <caption>Boutons — pull-up interne, aucune résistance à ajouter</caption>
+      <thead><tr><th>Commande</th><th>GPIO</th><th>Sérigraphie</th><th>Autre patte</th></tr></thead>
+      <tbody>
+        <tr><td>Piano — touche 1 <span class="silk">· bouton 0</span></td><td class="pin">13</td><td class="silk">D13</td><td>commun</td></tr>
+        <tr><td>Piano — touche 2 <span class="silk">· bouton 1</span></td><td class="pin">14</td><td class="silk">D14</td><td>commun</td></tr>
+        <tr><td>Piano — touche 3 <span class="silk">· bouton 2</span></td><td class="pin">27</td><td class="silk">D27</td><td>commun</td></tr>
+        <tr><td>Piano — touche 4 <span class="silk">· bouton 3</span></td><td class="pin">32</td><td class="silk">D32</td><td>commun</td></tr>
+        <tr><td>Forme 1 <span class="silk">· bouton 4</span></td><td class="pin">18</td><td class="silk">D18</td><td>GND</td></tr>
+        <tr><td>Forme 2 <span class="silk">· bouton 5</span></td><td class="pin">19</td><td class="silk">D19</td><td>GND</td></tr>
+        <tr><td>Forme 3 <span class="silk">· bouton 6</span></td><td class="pin">21</td><td class="silk">D21</td><td>GND</td></tr>
+        <tr class="chg"><td>Maracas <span class="silk">· bouton 7</span> <span class="was">était D23</span></td><td class="pin">26</td><td class="silk">D26</td><td>GND</td></tr>
+        <tr class="chg"><td>Trappe <span class="silk">· bouton 8</span> <span class="was">ex-caisse</span></td><td class="pin">25</td><td class="silk">D25</td><td>GND</td></tr>
+        <tr class="chg"><td>Bongo <span class="silk">· bouton 9</span> <span class="was">était D26</span></td><td class="pin">23</td><td class="silk">D23</td><td>GND</td></tr>
+        <tr class="chg"><td>Guitare 1 <span class="silk">· bouton 10</span> <span class="was">était D22</span></td><td class="pin">33</td><td class="silk">D33</td><td>GND</td></tr>
+        <tr class="chg"><td>Livre <span class="silk">· bouton 12</span> <span class="was">nouveau</span></td><td class="pin">15</td><td class="silk">D15</td><td>GND</td></tr>
+        <tr class="chg"><td>SW1 — sélecteur MIDI / HID <span class="was">était D33</span></td><td class="pin">22</td><td class="silk">D22</td><td>GND</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tw">
+    <table>
+      <caption>Entrées spéciales — résistances externes obligatoires</caption>
+      <thead><tr><th>Commande</th><th>GPIO</th><th>Sérigraphie</th><th>À ajouter</th></tr></thead>
+      <tbody>
+        <tr class="chg"><td>Guitare 2 <span class="silk">· bouton 11</span> <span class="was">était D15</span></td><td class="pin">39</td><td class="silk">VN</td><td>10 kΩ vers 3V3, bouton vers GND</td></tr>
+        <tr><td>SW2 contact A</td><td class="pin">35</td><td class="silk">D35</td><td>10 kΩ vers 3V3</td></tr>
+        <tr><td>SW2 contact C</td><td class="pin">36</td><td class="silk">VP</td><td>10 kΩ vers 3V3</td></tr>
+        <tr><td>SW2 commun</td><td class="pin">—</td><td class="silk">GND</td><td>—</td></tr>
+        <tr><td>Slider — curseur (patte centrale)</td><td class="pin">34</td><td class="silk">D34</td><td>—</td></tr>
+        <tr><td>Slider — extrémité 1</td><td class="pin">—</td><td class="silk">GND</td><td>—</td></tr>
+        <tr><td>Slider — extrémité 2</td><td class="pin">—</td><td class="silk">3V3</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tw">
+    <table>
+      <caption>Réservé — ne soude rien dessus pour l'instant</caption>
+      <thead><tr><th>Usage futur</th><th>GPIO</th><th>Sérigraphie</th><th>Remarque</th></tr></thead>
+      <tbody>
+        <tr><td>LED 1 à 4</td><td class="pin">2, 4, 16, 17</td><td class="silk">D2 D4 RX2 TX2</td><td>résistance série par LED</td></tr>
+        <tr><td>Haut-parleur</td><td class="pin">12</td><td class="silk">D12</td><td>condensateur en série obligatoire</td></tr>
+        <tr><td>Broche libre</td><td class="pin">5</td><td class="silk">D5</td><td>broche de démarrage, éviter pour un bouton</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card good">
+    <h3>Le budget, LED et haut-parleur compris</h3>
+    <p>Un DevKit V1 30 broches expose <b>23 GPIO utilisables</b> : les 6 à 11 sont soudées à la mémoire flash, les 1 et 3 servent au port série USB. Le plan ci-dessus en consomme <b>22</b>, les 4 LED et le haut-parleur inclus, et laisse <b>une broche libre</b> (D5).</p>
+    <p>Le livre a pris la dernière broche ordinaire. L'entrée en mode configuration ne demande toujours aucun bouton dédié puisqu'elle réutilise deux boutons de la table.</p>
+  </div>
+
+  <div class="card">
+    <h3>Comment gagner des broches plus tard, sans rien défaire</h3>
+    <p>Un <b>MCP23017</b> (~2 €) est un expandeur de ports en I²C : il coûte 2 broches et en rend 16, soit <b>+14 net</b>. Idéal pour des boutons, qui n'ont aucune contrainte de temps, et il s'ajoute après coup sans toucher à une seule soudure existante. Le 74HC165 fait la même chose pour moins cher (3 broches pour 8 entrées, chaînable) au prix d'un peu plus de code.</p>
+    <p>En revanche, <b>passer à un DevKit 38 broches n'apporte presque rien</b> : les broches supplémentaires sont surtout des GND, du 3V3 et les broches 6 à 11 de la flash, inutilisables. Tu ne gagnes que GPIO 0, qui est une broche de démarrage délicate.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Le motif à répéter neuf fois</h2>
+  <p class="sec-note">Les 3 formes, maracas, trappe, bongo, Guitare 1, le livre et SW1 se câblent tous de façon identique : deux fils, aucun composant. Le piano s'en écarte parce qu'il partage un commun, et Guitare 2 parce qu'elle demande une résistance (voir plus bas).</p>
+
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 660 250" role="img" aria-label="Un bouton se câble entre une broche GPIO et la masse ; la résistance de tirage est fournie par l'ESP32 lui-même.">
+        <!-- ESP32 -->
+        <rect x="24" y="86" width="118" height="70" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="83" y="118" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="currentColor">ESP32</text>
+        <text x="83" y="136" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".65">D18</text>
+
+        <!-- pull-up interne -->
+        <g stroke="currentColor" stroke-width="1.3" fill="none" stroke-dasharray="4 3" opacity=".6">
+          <rect x="176" y="26" width="128" height="52" rx="5"/>
+          <line x1="240" y1="78" x2="240" y2="121"/>
+        </g>
+        <text x="240" y="47" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".75">pull-up interne ≈ 45 kΩ</text>
+        <text x="240" y="63" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".75">INPUT_PULLUP</text>
+
+        <!-- ligne signal -->
+        <line x1="142" y1="121" x2="352" y2="121" stroke="var(--brass)" stroke-width="2"/>
+        <circle cx="240" cy="121" r="3.5" fill="var(--brass)"/>
+
+        <!-- bouton -->
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="352" y1="121" x2="376" y2="121"/>
+          <line x1="376" y1="121" x2="376" y2="106"/>
+          <line x1="368" y1="100" x2="424" y2="88"/>
+          <line x1="424" y1="121" x2="424" y2="106"/>
+          <line x1="424" y1="121" x2="448" y2="121"/>
+        </g>
+        <text x="400" y="152" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="currentColor">bouton</text>
+
+        <!-- vers GND -->
+        <line x1="448" y1="121" x2="556" y2="121" stroke="currentColor" stroke-width="2"/>
+        <line x1="556" y1="121" x2="556" y2="176" stroke="currentColor" stroke-width="2"/>
+        <g stroke="currentColor" stroke-width="2">
+          <line x1="534" y1="176" x2="578" y2="176"/>
+          <line x1="542" y1="186" x2="570" y2="186"/>
+          <line x1="550" y1="196" x2="562" y2="196"/>
+        </g>
+        <text x="556" y="220" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">GND</text>
+
+        <text x="196" y="103" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".7">repos = 3,3 V</text>
+        <text x="452" y="103" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".7">appuyé = 0 V</text>
+      </svg>
+    </div>
+    <figcaption><b>Un bouton, deux fils.</b> La résistance de tirage est <b>dans la puce</b>, activée par le code. C'est pour ça que la broche lit 3,3 V au repos et 0 V à l'appui, et pourquoi la logique du firmware est inversée par rapport à l'intuition.</figcaption>
+  </figure>
+
+  <h3>Le piano : 5 fils, pas 8</h3>
+  <p>Le bloc piano ne sort que <b>5 fils pour 4 touches</b> : chaque touche a son fil de signal, et les quatre partagent un <b>unique fil commun</b>. Ce commun joue le rôle du deuxième fil des quatre boutons à la fois.</p>
+
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 660 300" role="img" aria-label="Les quatre touches du piano partagent un fil commun relié à la masse ; chaque touche a son propre fil de signal vers une broche différente.">
+        <rect x="24" y="42" width="118" height="196" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="83" y="130" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13" font-weight="700" fill="currentColor">ESP32</text>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" text-anchor="end">
+          <text x="134" y="78">D13</text>
+          <text x="134" y="124">D14</text>
+          <text x="134" y="170">D27</text>
+          <text x="134" y="216">D32</text>
+        </g>
+
+        <!-- 4 fils signal -->
+        <g stroke="var(--brass)" stroke-width="2" fill="none">
+          <line x1="142" y1="74" x2="300" y2="74"/>
+          <line x1="142" y1="120" x2="300" y2="120"/>
+          <line x1="142" y1="166" x2="300" y2="166"/>
+          <line x1="142" y1="212" x2="300" y2="212"/>
+        </g>
+
+        <!-- 4 contacts -->
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="300" y1="74" x2="316" y2="74"/><line x1="316" y1="74" x2="316" y2="62"/>
+          <line x1="310" y1="57" x2="356" y2="47"/>
+          <line x1="356" y1="74" x2="356" y2="62"/><line x1="356" y1="74" x2="372" y2="74"/>
+
+          <line x1="300" y1="120" x2="316" y2="120"/><line x1="316" y1="120" x2="316" y2="108"/>
+          <line x1="310" y1="103" x2="356" y2="93"/>
+          <line x1="356" y1="120" x2="356" y2="108"/><line x1="356" y1="120" x2="372" y2="120"/>
+
+          <line x1="300" y1="166" x2="316" y2="166"/><line x1="316" y1="166" x2="316" y2="154"/>
+          <line x1="310" y1="149" x2="356" y2="139"/>
+          <line x1="356" y1="166" x2="356" y2="154"/><line x1="356" y1="166" x2="372" y2="166"/>
+
+          <line x1="300" y1="212" x2="316" y2="212"/><line x1="316" y1="212" x2="316" y2="200"/>
+          <line x1="310" y1="195" x2="356" y2="185"/>
+          <line x1="356" y1="212" x2="356" y2="200"/><line x1="356" y1="212" x2="372" y2="212"/>
+        </g>
+
+        <g font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor" opacity=".8" text-anchor="middle">
+          <text x="336" y="94">touche 1</text>
+          <text x="336" y="140">touche 2</text>
+          <text x="336" y="186">touche 3</text>
+          <text x="336" y="232">touche 4</text>
+        </g>
+
+        <!-- bus commun -->
+        <line x1="440" y1="74" x2="440" y2="212" stroke="currentColor" stroke-width="4" opacity=".55"/>
+        <g stroke="currentColor" stroke-width="2">
+          <line x1="372" y1="74" x2="440" y2="74"/>
+          <line x1="372" y1="120" x2="440" y2="120"/>
+          <line x1="372" y1="166" x2="440" y2="166"/>
+          <line x1="372" y1="212" x2="440" y2="212"/>
+        </g>
+        <g fill="currentColor">
+          <circle cx="440" cy="74" r="3.5"/><circle cx="440" cy="120" r="3.5"/>
+          <circle cx="440" cy="166" r="3.5"/><circle cx="440" cy="212" r="3.5"/>
+        </g>
+        <text x="452" y="60" font-family="IBM Plex Sans, sans-serif" font-size="11.5" fill="currentColor">commun — interne au bloc piano</text>
+
+        <!-- 5e fil vers GND -->
+        <line x1="440" y1="212" x2="556" y2="212" stroke="currentColor" stroke-width="2.5"/>
+        <line x1="556" y1="212" x2="556" y2="244" stroke="currentColor" stroke-width="2.5"/>
+        <g stroke="currentColor" stroke-width="2">
+          <line x1="534" y1="244" x2="578" y2="244"/>
+          <line x1="542" y1="254" x2="570" y2="254"/>
+          <line x1="550" y1="264" x2="562" y2="264"/>
+        </g>
+        <text x="556" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">GND</text>
+        <text x="498" y="204" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--brass)" font-weight="600">5ᵉ fil</text>
+      </svg>
+    </div>
+    <figcaption><b>Quatre fils de signal, un fil commun.</b> Le commun est déjà relié aux quatre touches <b>à l'intérieur du bloc</b> : tu n'as qu'un seul fil à amener au rail GND. Les quatre autres partent vers quatre broches distinctes, ce qui donne quatre notes différentes sans un fil de plus.</figcaption>
+  </figure>
+
+  <div class="card">
+    <h3>Identifier le fil commun</h3>
+    <p>Au multimètre en mode continuité : le <b>commun est le seul fil qui bipe avec chacun des quatre autres</b> quand tu appuies sur la touche correspondante. Les quatre fils de signal, eux, ne communiquent jamais entre eux. Repère-le avant de souder : une inversion se voit mal et se débogue mal.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Les entrées sans pull-up : SW2 et Guitare 2</h2>
+  <p class="sec-note">Les broches 34, 35, 36 (VP) et 39 (VN) sont en entrée seule et <b>ne possèdent aucune résistance de tirage interne</b>. <code>INPUT_PULLUP</code> y est ignoré sans le moindre avertissement. Chaque contact branché dessus a donc besoin de sa propre 10 kΩ vers 3V3.</p>
+
+  <h3>Le switch 3 positions</h3>
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 720 340" role="img" aria-label="Le switch 3 positions : deux résistances de 10 kilo-ohms tirent les broches 35 et VP vers 3,3 volts, le commun du switch va à la masse.">
+        <!-- rail 3V3 -->
+        <line x1="150" y1="40" x2="600" y2="40" stroke="var(--brass)" stroke-width="4"/>
+        <text x="132" y="45" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--brass)">3V3</text>
+
+        <!-- resistances -->
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="270" y1="40" x2="270" y2="72"/>
+          <rect x="255" y="72" width="30" height="62" rx="3"/>
+          <line x1="270" y1="134" x2="270" y2="176"/>
+          <line x1="450" y1="40" x2="450" y2="72"/>
+          <rect x="435" y="72" width="30" height="62" rx="3"/>
+          <line x1="450" y1="134" x2="450" y2="176"/>
+        </g>
+        <circle cx="270" cy="40" r="4" fill="var(--brass)"/>
+        <circle cx="450" cy="40" r="4" fill="var(--brass)"/>
+        <text x="296" y="100" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="var(--danger)" font-weight="600">10 kΩ</text>
+        <text x="476" y="100" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="var(--danger)" font-weight="600">10 kΩ</text>
+
+        <!-- noeuds vers ESP32 -->
+        <line x1="270" y1="176" x2="112" y2="176" stroke="var(--brass)" stroke-width="2"/>
+        <line x1="450" y1="176" x2="450" y2="206" stroke="var(--brass)" stroke-width="2"/>
+        <line x1="450" y1="206" x2="112" y2="206" stroke="var(--brass)" stroke-width="2"/>
+        <circle cx="270" cy="176" r="4" fill="var(--brass)"/>
+        <circle cx="450" cy="176" r="4" fill="var(--brass)"/>
+
+        <rect x="14" y="146" width="98" height="90" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="63" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor">D35</text>
+        <text x="63" y="212" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="currentColor">VP (36)</text>
+        <text x="63" y="256" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="currentColor" opacity=".7">entrées seules</text>
+
+        <!-- contacts du switch -->
+        <g stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="270" y1="176" x2="270" y2="212"/>
+          <line x1="450" y1="176" x2="450" y2="212"/>
+        </g>
+        <circle cx="270" cy="216" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="360" cy="216" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="450" cy="216" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="270" y="204" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor">A</text>
+        <text x="360" y="204" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor">B</text>
+        <text x="450" y="204" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor">C</text>
+        <text x="360" y="188" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="currentColor" opacity=".7">non câblé</text>
+
+        <!-- levier + commun -->
+        <line x1="360" y1="262" x2="286" y2="226" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="360" cy="262" r="5" fill="currentColor"/>
+        <text x="378" y="266" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor">commun</text>
+
+        <line x1="360" y1="262" x2="360" y2="290" stroke="currentColor" stroke-width="2"/>
+        <g stroke="currentColor" stroke-width="2">
+          <line x1="338" y1="290" x2="382" y2="290"/>
+          <line x1="346" y1="300" x2="374" y2="300"/>
+          <line x1="354" y1="310" x2="366" y2="310"/>
+        </g>
+        <text x="360" y="332" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">GND</text>
+      </svg>
+    </div>
+    <figcaption><b>Pourquoi ces deux résistances sont obligatoires.</b> Sans les 10 kΩ, les entrées flottent et le layer change tout seul. C'est le point qui rendait ton montage instable.</figcaption>
+  </figure>
+
+  <div class="tw">
+    <table>
+      <caption>Ce que lit le firmware selon la position</caption>
+      <thead><tr><th>Position du levier</th><th>D35</th><th>VP (36)</th><th>Layer</th></tr></thead>
+      <tbody>
+        <tr><td>A — à gauche</td><td class="pin">0 V</td><td class="pin">3,3 V</td><td>0</td></tr>
+        <tr><td>B — au centre</td><td class="pin">3,3 V</td><td class="pin">3,3 V</td><td>1</td></tr>
+        <tr><td>C — à droite</td><td class="pin">3,3 V</td><td class="pin">0 V</td><td>2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:1rem">Le contact central B ne va sur aucune broche : c'est l'absence de contact sur A <i>et</i> sur C qui le caractérise. Une broche économisée, et une position qui ne peut jamais être ambiguë.</p>
+
+  <h3>Guitare 2 sur VN</h3>
+  <p>C'est la seule broche libre entre EN et D33, le côté où arrivent les fils de la guitare. Elle se câble exactement comme une moitié de SW2 :</p>
+  <ul>
+    <li>une <b>10 kΩ entre VN et le rail 3V3</b> ;</li>
+    <li>le bouton <b>entre VN et GND</b>.</li>
+  </ul>
+  <p>Repos = 3,3 V, appui = 0 V : la même logique que les autres boutons. Dans le code, déclare-la en <code>INPUT</code> et non en <code>INPUT_PULLUP</code>.</p>
+
+  <div class="card">
+    <h3>Lis VN par scrutation, pas par interruption</h3>
+    <p>Sur l'ESP32, les broches 36 et 39 peuvent recevoir une impulsion basse très brève quand le convertisseur analogique se met en route, ce qui arrive à chaque lecture du slider. Une boucle de scrutation avec anti-rebond de quelques millisecondes l'ignore sans effort. Une interruption sur front descendant, elle, déclencherait de faux appuis. SW2 sur VP suit la même règle.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Le slider</h2>
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 620 250" role="img" aria-label="Le potentiomètre du slider câblé en diviseur de tension entre 3,3 volts et la masse, son curseur allant sur la broche 34.">
+        <line x1="120" y1="42" x2="470" y2="42" stroke="var(--brass)" stroke-width="4"/>
+        <text x="104" y="47" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--brass)">3V3</text>
+
+        <line x1="330" y1="42" x2="330" y2="80" stroke="currentColor" stroke-width="2"/>
+        <circle cx="330" cy="42" r="4" fill="var(--brass)"/>
+        <rect x="288" y="80" width="84" height="96" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="330" y="134" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor">10 kΩ</text>
+
+        <!-- curseur -->
+        <line x1="196" y1="128" x2="272" y2="128" stroke="var(--brass)" stroke-width="2"/>
+        <path d="M272 118 L288 128 L272 138 z" fill="var(--brass)"/>
+        <text x="234" y="116" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="currentColor">curseur</text>
+
+        <rect x="60" y="102" width="136" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="128" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor">D34</text>
+        <text x="128" y="144" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="currentColor" opacity=".7">ADC1</text>
+
+        <line x1="330" y1="176" x2="330" y2="200" stroke="currentColor" stroke-width="2"/>
+        <g stroke="currentColor" stroke-width="2">
+          <line x1="308" y1="200" x2="352" y2="200"/>
+          <line x1="316" y1="210" x2="344" y2="210"/>
+          <line x1="324" y1="220" x2="336" y2="220"/>
+        </g>
+        <text x="330" y="242" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">GND</text>
+      </svg>
+    </div>
+    <figcaption><b>Un diviseur de tension classique.</b> D34 est sur l'<b>ADC1</b>, le seul convertisseur utilisable quand la radio Bluetooth émet. L'ADC2 (broches 25, 26, 27…) devient inexploitable dès que le WiFi ou le BLE tourne. Ton choix d'origine était déjà le bon.</figcaption>
+  </figure>
+  <p style="margin-top:1rem">Si tu inverses les deux extrémités, le fader fonctionnera à l'envers. Ça se corrige dans le code sans ressouder, ne t'inquiète pas de l'orientation.</p>
+</section>
+
+<section>
+  <h2>Les broches à ne jamais utiliser pour un bouton</h2>
+  <p class="sec-note">L'ESP32 lit l'état de certaines broches au démarrage pour décider comment démarrer. Un bouton ou une LED qui les force au mauvais niveau empêche la carte de booter, et le symptôme est déroutant parce que le montage semble correct.</p>
+
+  <div class="card warn">
+    <h3>GPIO 12 — le plus dangereux</h3>
+    <p>S'il est à l'état haut au démarrage, l'ESP32 configure sa mémoire flash en 1,8 V et <b>la carte ne démarre plus du tout</b>. Or <code>INPUT_PULLUP</code> le met précisément à l'état haut. Ne mets jamais un bouton dessus. Il reste utilisable en <i>sortie</i>, d'où le haut-parleur, à condition d'un condensateur en série qui coupe toute liaison continue.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <caption>Les autres broches sensibles</caption>
+      <thead><tr><th>GPIO</th><th>Contrainte au démarrage</th><th>Conséquence si violée</th></tr></thead>
+      <tbody>
+        <tr><td class="pin">0</td><td>doit être haut</td><td>la carte entre en mode téléversement</td></tr>
+        <tr><td class="pin">2</td><td>doit être bas ou flottant</td><td>téléversement perturbé</td></tr>
+        <tr><td class="pin">5</td><td>doit être haut</td><td>démarrage aléatoire</td></tr>
+        <tr><td class="pin">15</td><td>doit être haut</td><td>journal de démarrage muet</td></tr>
+        <tr><td class="pin">1 · 3</td><td>port série USB</td><td>plus de moniteur série</td></tr>
+        <tr><td class="pin">6 – 11</td><td>mémoire flash interne</td><td>non accessibles de toute façon</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1.25rem">C'est pour cette raison que les 4 LED quittent les broches 2, 4, 5 et 15 de ton fichier d'origine pour aller sur <b>2, 4, 16 et 17</b>. Une LED avec sa résistance vers la masse tire doucement la broche vers le bas : inoffensif sur 2 et 4, risqué sur 5 et 15.</p>
+
+  <div class="card">
+    <h3>Un seul bouton sur une broche de démarrage : le livre sur D15</h3>
+    <p>Le livre prend la place laissée par Guitare 2, sur <b>GPIO 15</b>, plutôt que GPIO 5. Si la broche 15 est basse au démarrage, la seule conséquence est que <b>le journal de démarrage devient muet</b> : la carte fonctionne normalement. Sur GPIO 5, c'est le <i>timing</i> du démarrage qui change, avec un résultat moins prévisible. GPIO 5 reste donc libre.</p>
+    <p>En <b>entrée avec pull-up</b>, la broche repose de toute façon à 3,3 V, exactement le niveau attendu. Le seul cas gênant serait d'appuyer sur le livre pendant l'allumage, et même là rien n'est cassé : relâche et rallume.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Ce qu'il te faut</h2>
+  <ul>
+    <li><b>3 résistances 10 kΩ</b> : deux pour SW2, une pour Guitare 2</li>
+    <li><b>Du fil souple fin</b>, type nappe de récupération ou fil à wrapper : les contacts de la table sont fragiles</li>
+    <li><b>Une petite plaque à pastilles</b> pour matérialiser les rails GND et 3V3, bien plus fiable que d'empiler quinze fils sur une seule broche GND de l'ESP32</li>
+    <li><b>De la gaine thermorétractable</b> pour les trois résistances</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Ordre de soudure conseillé</h2>
+  <p class="sec-note">Cet ordre te permet de tester après chaque étape plutôt que de tout découvrir à la fin.</p>
+  <ol class="steps">
+    <li><b>Les deux rails d'abord.</b> Soude le rail GND et le rail 3V3 sur la plaque à pastilles, puis relie-les à GND et 3V3 de l'ESP32. Tout le reste s'y raccroche.</li>
+    <li><b>SW1 sur D22, puis test.</b> Si SW1 était déjà soudé sur D33, dessoude-le d'abord : D33 revient à la guitare. Une LED qui clignote une fois annonce le mode MIDI, deux fois le mode HID.</li>
+    <li><b>SW2 avec ses deux résistances, puis test.</b> Vérifie les trois positions au moniteur série avant de continuer : c'est la partie la plus facile à rater.</li>
+    <li><b>Le piano.</b> Repère d'abord son fil commun au multimètre, amène-le au rail GND, puis les quatre fils de signal sur D13, D14, D27 et D32.</li>
+    <li><b>Les 3 formes, puis maracas sur D26, trappe sur D25, bongo sur D23.</b> Six soudures identiques, à la chaîne.</li>
+    <li><b>La guitare côté EN.</b> Guitare 1 sur D33 directement ; Guitare 2 sur VN avec sa 10 kΩ vers 3V3. Teste Guitare 2 au moniteur : si elle lit un état qui change tout seul, la résistance manque ou est mal soudée.</li>
+    <li><b>Le livre sur D15.</b> Redémarre la table une fois en le maintenant enfoncé : tu verras le journal de démarrage disparaître, et tu sauras reconnaître le symptôme s'il survient plus tard.</li>
+    <li><b>Le slider en dernier</b>, parce que c'est le seul composant analogique et qu'il demande de recalibrer les bornes dans le code.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>À reporter dans le firmware</h2>
+  <p class="sec-note">Remplace ces constantes en haut de <code>table_eveil_v2.ino</code>.</p>
+  <pre><span class="c">// ---- brochage v2 ----</span>
+const uint8_t NB_BOUTONS = 13;  <span class="c">// piano 4, formes 3, perc/trappe 3, guitare 2, livre 1</span>
+
+const uint8_t PIN_SW1   = 22;   <span class="c">// etait 33, rendu a la guitare</span>
+const uint8_t PIN_SW2_A = 35;
+const uint8_t PIN_SW2_C = 36;
+const int8_t  PIN_BOUTON_CONFIG = -1;   <span class="c">// plus besoin : voir le combo</span>
+const int8_t  PIN_LED_ETAT      = 2;
+
+<span class="c">// ---- entree en config : maracas + bongo maintenus au demarrage ----</span>
+const uint8_t COMBO_CONFIG[2] = {26, 23};
+
+bool comboConfigMaintenu() {
+  for (uint8_t i = 0; i &lt; 2; i++)
+    if (digitalRead(COMBO_CONFIG[i]) != LOW) return false;
+  return true;
+}
+
+<span class="c">// ---- les 13 boutons de macro ----</span>
+const uint8_t PIN_BOUTON[NB_BOUTONS] = {
+  13, 14, 27, 32,   <span class="c">// 0-3   piano, une note par touche</span>
+  18, 19, 21,       <span class="c">// 4-6   formes geometriques</span>
+  26, 25, 23,       <span class="c">// 7-9   maracas, trappe, bongo</span>
+  33, 39,           <span class="c">// 10-11 guitare (39 = VN, pull-up externe)</span>
+  15                <span class="c">// 12    livre</span>
+};
+
+<span class="c">// 34-39 n'ont pas de pull-up interne : INPUT simple</span>
+void initBoutons() {
+  for (uint8_t i = 0; i &lt; NB_BOUTONS; i++)
+    pinMode(PIN_BOUTON[i], PIN_BOUTON[i] &gt;= 34 ? INPUT : INPUT_PULLUP);
+}</pre>
+
+  <div class="card good">
+    <h3>Aucun bouton de configuration à ajouter</h3>
+    <p>Une <b>combinaison de deux boutons</b>, maracas + bongo maintenus au démarrage, déclenche le mode config. Elle rend le déclenchement accidentel improbable et ne coûte ni composant, ni broche. Avec l'échange de soudure, maracas est désormais sur 26 et bongo sur 23 : ce sont les mêmes broches, le combo ne change pas.</p>
+    <p>N'utilise pas le livre dans ce combo : il est sur la broche 15, celle qu'il ne faut justement pas maintenir enfoncée au démarrage. Le double appui sur RESET reste disponible comme méthode de secours.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>Deux corrections indispensables dans le croquis</h3>
+    <p>Passer <code>NB_BOUTONS</code> à 13 casse deux choses silencieusement :</p>
+    <ul>
+      <li>Le tableau <code>raccourcis[NB_BOUTONS]</code> de <code>chargerDefauts()</code> ne contient que 10 lettres. Les trois dernières touches se retrouveraient sans action. Il faut le compléter.</li>
+      <li>La simulation au moniteur série ne gère que les chiffres <code>1</code> à <code>9</code>. Au-delà de 9 boutons, il faut d'autres touches, mais une fois soudé, tu n'en auras plus besoin.</li>
+    </ul>
+    <p>La sauvegarde en flash change de taille : le contrôle au démarrage détectera l'incompatibilité et rechargera les valeurs par défaut tout seul. Pas de configuration corrompue à craindre.</p>
+  </div>
+
+  <div class="card">
+    <h3>Correspondance avec la page de configuration</h3>
+    <p>Les numéros de la colonne « Bouton » de la page web suivent cet ordre. La ligne <code>2</code> est la <b>troisième touche de piano</b>, la ligne <code>7</code> le <b>maracas</b>, la ligne <code>8</code> la <b>trappe</b>, la ligne <code>10</code> la <b>première corde de guitare</b>, la ligne <code>12</code> le <b>livre</b>. Le tableau de brochage plus haut rappelle ce numéro en face de chaque commande.</p>
+  </div>
+
+  <div class="card good">
+    <h3>Ce que ça donne en notes</h3>
+    <p>13 boutons × 3 layers = <b>39 sons distincts</b>, des notes MIDI 36 à 74.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>Il manque encore le code de lecture</h3>
+    <p>Le croquis actuel ne lit que SW1 et SW2 ; les boutons sont simulés au clavier. Le tableau <code>PIN_BOUTON</code> ci-dessus ne suffit pas : il faut aussi ajouter la boucle d'anti-rebond qui les scrute. Dis-le moi quand tu auras soudé, on l'ajoutera ensemble.</p>
+  </div>
+</section>
+
+<footer>
+  Brochage établi pour un ESP32 DevKit V1 / WROOM-32, core Arduino ESP32 3.3.11.
+  Les 4 LED et le haut-parleur sont volontairement exclus : leurs broches sont réservées mais rien n'y est soudé.
+</footer>
+
+</div>
