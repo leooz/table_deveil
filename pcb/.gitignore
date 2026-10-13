@@ -1,0 +1,5 @@
+*.dsn
+*.ses
+freerouting.jar
+fp-info-cache
+*-backups/
